@@ -1,0 +1,30 @@
+div {
+    border: 10px dotted purple;
+    margin: 0 auto;
+    width: 600px;
+    height: 250px;
+    text-align: center;
+    font-family: 'Cute Font', cursive;
+    font-size: 30px;
+    line-height: 5px;
+    padding-top: 30px;
+    background-color: rgb(201, 201, 201);
+}
+
+h1 {
+    font-size: 60px;
+    margin: 0   
+}
+
+#loss-text {
+    color: red;
+}
+
+#win-text {
+    color: green;
+}
+
+h1, 
+#guess-text {
+color: purple;
+}
