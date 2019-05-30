@@ -20,8 +20,8 @@ var wins = 0;
 var losses = 0;
 var guessesRemaining = 9;
 var lettersUserGuessed = [];
-var isDuplicate = false;
-var computerGuess = 0
+// var isDuplicate = false;
+var computerGuess = " ";
 
 //reset game when user wins or guessCount = 0 and pick a new random letter from array of letters
     function gameReset() {
@@ -38,24 +38,26 @@ document.onkeyup = function (event) {
     var userGuess = event.key;
   
     // if userguess(keypress) is equal to the myOptions array / not false (-1) ...do this function
-    if (myOptions.indexOf(userGuess) > -1) {
-        
+    if (myOptions.indexOf(userGuess) > -1  && lettersUserGuessed.indexOf(userGuess) > -1); {
+                                        //breaks game, starts logging keys that are not letters, still no double letter prevent
+
+
         /* when user letter guess is equal to the computer letter guess, add one to win count,
             reset guessesRemaining to 9 and clear the lettersUserGuessed array */
         if (userGuess === computerGuess) {
-            wins++
-            gameReset()
+            wins++;
+            gameReset();
         }
 
         // if choices do not match, subrtract one from guessesRemaining left and push userGuess to lettersUserGuessed 
         if (userGuess !== computerGuess) {
-            guessesRemaining--
-            lettersUserGuessed.push(userGuess)
+            guessesRemaining--;
+            lettersUserGuessed.push(userGuess);
 
             // if guess count runs out, reset guessCount to 9, clear the lettersUserGuessed array and add 1 to losses
             if (guessesRemaining === 0) {
-                gameReset()
-                losses++
+                gameReset();
+                losses++;
             }
         }
 }
