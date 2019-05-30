@@ -9,10 +9,7 @@ var lettersGuessedTextEmpty = document.getElementById("letters-guessed-text-empt
 
 
 // letters computer can choose from so they cannot pick anything but letters
-var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q",
-    "r", "s", "t", "u", "v", "w", "x", "y", "z",];
-//possibiities to eliminate anything except letters (converted it into a global variable)
-var myOptions = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q",
+var availableKeys = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q",
     "r", "s", "t", "u", "v", "w", "x", "y", "z",];
 
 // empty variables
@@ -20,47 +17,43 @@ var wins = 0;
 var losses = 0;
 var guessesRemaining = 9;
 var lettersUserGuessed = [];
-// var isDuplicate = false;
 var computerGuess = " ";
 
 //reset game when user wins or guessCount = 0 and pick a new random letter from array of letters
     function gameReset() {
         guessesRemaining = 9;
         lettersUserGuessed = [];
-        computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+        computerGuess = availableKeys[Math.floor(Math.random() * availableKeys.length)];
     }
 
 // when key is pressed
 document.onkeyup = function (event) {
 
-
     //var userGuess takes the parameter 'event' adds a .key method when user hits a key
     var userGuess = event.key;
   
-    // if userguess(keypress) is equal to the myOptions array / not false (-1) ...do this function
-    if (myOptions.indexOf(userGuess) > -1  && lettersUserGuessed.indexOf(userGuess) > -1); {
-                                        //breaks game, starts logging keys that are not letters, still no double letter prevent
-
+    // if userGuess contains one of the choice letters and a guess is not already a letter chosen {
+    if (availableKeys.includes(userGuess) === true && lettersUserGuessed.includes(userGuess) === false) {
 
         /* when user letter guess is equal to the computer letter guess, add one to win count,
-            reset guessesRemaining to 9 and clear the lettersUserGuessed array */
+            reset the game with gameReset() function */
         if (userGuess === computerGuess) {
             wins++;
             gameReset();
         }
 
-        // if choices do not match, subrtract one from guessesRemaining left and push userGuess to lettersUserGuessed 
+        // if choices do not match, subrtract one from guessesRemaining left and push userGuess to lettersUserGuessed array
         if (userGuess !== computerGuess) {
             guessesRemaining--;
             lettersUserGuessed.push(userGuess);
 
-            // if guess count runs out, reset guessCount to 9, clear the lettersUserGuessed array and add 1 to losses
+            // if guess count runs out, reset game using gameReset() function and add 1 to losses
             if (guessesRemaining === 0) {
                 gameReset();
                 losses++;
             }
         }
-}
+    }
 
     // update HTML text with .textContent
     instructionsText.textContent = "";
