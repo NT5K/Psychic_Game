@@ -26,6 +26,9 @@ var computerGuess = " ";
         computerGuess = availableKeys[Math.floor(Math.random() * availableKeys.length)];
     }
 
+// start game
+gameReset()
+
 // when key is pressed
 document.onkeyup = function (event) {
 
@@ -46,13 +49,13 @@ document.onkeyup = function (event) {
         if (userGuess !== computerGuess) {
             guessesRemaining--;
             lettersUserGuessed.push(userGuess);
-
+        }
             // if guess count runs out, reset game using gameReset() function and add 1 to losses
             if (guessesRemaining === 0) {
                 gameReset();
                 losses++;
             }
-        }
+        
     }
 
     // update HTML text with .textContent
