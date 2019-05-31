@@ -6,6 +6,7 @@ var guessesLeft = document.getElementById("count-text");
 var guessedLettersText = document.getElementById("guess-text");
 var instructionsText = document.getElementById("instructions-text");
 var lettersGuessedTextEmpty = document.getElementById("letters-guessed-text-empty");
+var winningLetterText = document.getElementById("winning-letter-text");
 
 
 // letters computer can choose from so they cannot pick anything but letters
@@ -26,9 +27,6 @@ var computerGuess = " ";
         computerGuess = availableKeys[Math.floor(Math.random() * availableKeys.length)];
     }
 
-// start game
-gameReset()
-
 // when key is pressed
 document.onkeyup = function (event) {
 
@@ -36,26 +34,27 @@ document.onkeyup = function (event) {
     var userGuess = event.key;
   
     // if userGuess contains one of the choice letters and a guess is not already a letter chosen {
-    if (availableKeys.includes(userGuess) === true && lettersUserGuessed.includes(userGuess) === false) {
+    if (availableKeys.includes(userGuess) && !lettersUserGuessed.includes(userGuess)) {
+
+        // if guess count runs out, reset game using gameReset() function and add 1 to losses
+        if (guessesRemaining === 0) {
+            gameReset();
+            losses++;
+        }
 
         /* when user letter guess is equal to the computer letter guess, add one to win count,
             reset the game with gameReset() function */
-        if (userGuess === computerGuess) {
+        else if (userGuess === computerGuess) {
             wins++;
             gameReset();
         }
 
-        // if choices do not match, subrtract one from guessesRemaining left and push userGuess to lettersUserGuessed array
-        if (userGuess !== computerGuess) {
+        /* if choices do not match !==, subrtract one from guessesRemaining left and push userGuess to 
+             lettersUserGuessed array */
+        else {
             guessesRemaining--;
-            lettersUserGuessed.push(userGuess);
-        }
-            // if guess count runs out, reset game using gameReset() function and add 1 to losses
-            if (guessesRemaining === 0) {
-                gameReset();
-                losses++;
-            }
-        
+            lettersUserGuessed.push(userGuess);       
+        }                           
     }
 
     // update HTML text with .textContent
